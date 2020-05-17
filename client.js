@@ -18,6 +18,12 @@ chatStream.on('data', data => {
   const { message, user } = data
 
   console.log(`New message from ${user}: ${message}`)
+}).on('error', error => {
+  console.log(`Error: ${error}`)
+  if (error.code === 14) {
+    console.log(`There is no server listening on ${SERVER_URI}`)
+    process.exit()
+  }
 })
 
 let messageNumber = 0
